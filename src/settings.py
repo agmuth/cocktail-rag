@@ -5,6 +5,7 @@ from pydantic_settings import BaseSettings
 
 load_dotenv()
 
+
 class Settings(BaseSettings):
     DATA_DIR: str
     PERSIST_DIR: str
@@ -16,7 +17,7 @@ class Settings(BaseSettings):
         self.DATA_DIR = self.PROJ_DIR.joinpath(self.DATA_DIR)
         if not self.DATA_DIR.exists():
             self.DATA_DIR.mkdir()
-            
+
         self.PERSIST_DIR = self.PROJ_DIR.joinpath(self.PERSIST_DIR)
 
 

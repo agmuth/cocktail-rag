@@ -1,11 +1,10 @@
 import string
 from concurrent.futures import ThreadPoolExecutor
-import re
-from lxml import etree
 
 import requests
 from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
+from lxml import etree
 from tenacity import retry, wait_exponential
 
 from src.settings import BASE_SETTINGS
@@ -54,28 +53,26 @@ class CocktailFriendScraper:
             "summary": "/html/body/main/div[4]/div[5]/div[1]/div[1]/div[2]",
             "shopping_list": "/html/body/main/div[4]/div[5]/div[2]/div[1]/div[2]",
         }
-        
+
         ua = UserAgent()
         header = {"User-Agent": str(ua.random)}
         htmlContent = requests.get(cocktail_url, headers=header)
         soup = BeautifulSoup(htmlContent.content, "html.parser")
         dom = etree.HTML(str(soup))
-        
+
         cocktail_text = [cocktail_name]
-        
+
         for k, v in xpath_mappings.items():
-            text = ''.join(dom.xpath(v)[0].itertext())
+            text = "".join(dom.xpath(v)[0].itertext())
             text = text.splitlines()
-            text = '\n'.join(x.strip() for x in text if x != '')
+            text = "\n".join(x.strip() for x in text if x != "")
             cocktail_text.append(k)
             cocktail_text.append(text)
-        
+
         with open(cls.data_dir.joinpath(f"{cocktail_name}.txt"), "w") as f:
             cocktail_text = "\n\n".join(cocktail_text)
             f.writelines(cocktail_text)
-        
 
 
 if __name__ == "__main__":
     CocktailFriendScraper.scrape_cocktails()
-    

@@ -8,5 +8,5 @@ client = qdrant_client.QdrantClient(
     host=BASE_SETTINGS.QDRANT_HOST, port=BASE_SETTINGS.QDRANT_PORT
 )
 vector_store = QdrantVectorStore(
-    client=client, collection_name="example", embed_model=embed_model
+    client=client, collection_name=BASE_SETTINGS.QDRANT_COLLECTION_NAME, embed_model=embed_model
 )

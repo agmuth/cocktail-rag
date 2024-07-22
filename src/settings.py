@@ -18,12 +18,16 @@ class Settings(BaseSettings):
     MONGO_PORT: int = 27017
     MONGO_HOST: str = "localhost"
     MONGO_URI: Optional[str] = None
+    MONGO_DB_NAME: str = "cocktails"
 
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333
+    QDRANT_COLLECTION_NAME: str = "cocktails"
     
     GRADIO_SERVER_NAME: str="localhost"
     GRADIO_SERVER_PORT: int=7860
+    
+    
 
     def __init__(self):
         super().__init__()

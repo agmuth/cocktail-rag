@@ -9,9 +9,6 @@ packages = [{include="src"}]
 [tool.poetry.dependencies]
 python = ">=3.9,<3.13"
 pydantic = "^2.6.4"
-beautifulsoup4 = "^4.12.3"
-tenacity = "^8.2.3"
-requests = "^2.31.0"
 pydantic-settings = "^2.2.1"
 python-dotenv = "^1.0.1"
 fake-useragent = "^1.5.1"
@@ -42,6 +39,7 @@ gradio = "^4.38.1"
 black = "^24.3.0"
 isort = "^5.13.2"
 ruff = "^0.3.3"
+
 
 [build-system]
 requires = ["poetry-core"]

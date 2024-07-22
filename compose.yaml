@@ -27,6 +27,15 @@ services:
   # depends_on:
   #   - nvidia
 
+  # app:
+  #   build: ./
+  #   ports:
+  #     - 7860:7860
+  #   entrypoint: python src/ui.ui.py
+  #   depends_on:
+  #     - qdrant
+  #     - mongo
+
   qdrant:
     image: qdrant/qdrant:latest
     ports:

@@ -21,6 +21,9 @@ class Settings(BaseSettings):
 
     QDRANT_HOST: str = "localhost"
     QDRANT_PORT: int = 6333
+    
+    GRADIO_SERVER_NAME: str="localhost"
+    GRADIO_SERVER_PORT: int=7860
 
     def __init__(self):
         super().__init__()

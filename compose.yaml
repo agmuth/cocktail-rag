@@ -1,0 +1,79 @@
+version: '3.8'
+
+
+
+services:
+
+  # nvidia:
+  #   image: nvidia/cuda:12.3.1-base-ubuntu20.04
+  #   command: nvidia-smi
+  #   deploy:
+  #     resources:
+  #       reservations:
+  #         devices:
+  #           - driver: nvidia
+  #             count: 1
+  #             capabilities: [gpu]
+
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   ports:
+  #     - 11434:11434
+  #   volumes:
+  #     - ollama:/root/.ollama
+  #   entrypoint: /bin/sh
+  #   command: -c "sleep 10s; ollama run phi"
+    
+  # depends_on:
+  #   - nvidia
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - ${QDRANT_PORT}:${QDRANT_PORT}
+    volumes:
+      - qdrant_storage:/qdrant/storage
+    depends_on: 
+      - mongo
+
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    ports:
+      - 27017:27017
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+    volumes:
+      - mongo-data:/data/db
+    networks:
+      - mongo-network
+
+  mongo-express:
+    image: mongo-express:latest
+    restart: always
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_ADMINUSERNAME=root
+      - ME_CONFIG_MONGODB_ADMINPASSWORD=example
+      - ME_CONFIG_BASICAUTH_USERNAME=user
+      - ME_CONFIG_BASICAUTH_PASSWORD=password
+      - ME_CONFIG_MONGODB_URL=mongodb://root:example@mongo:27017/
+      - ME_CONFIG_BASICAUTH=false
+    depends_on: 
+      - mongo
+    networks:
+      - mongo-network
+
+volumes:
+  qdrant_storage:
+    driver: local
+  mongo-data:
+    driver: local
+  # ollama:
+  #   driver: local
+
+networks: 
+    mongo-network:
+      driver: bridge

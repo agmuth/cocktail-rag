@@ -21,13 +21,17 @@ class Settings(BaseSettings):
     QDRANT_PORT: int
     QDRANT_COLLECTION_NAME: str
 
-    GRADIO_SERVER_NAME: str
-    GRADIO_SERVER_PORT: int
+    UI_HOST: str
+    UI_PORT: int
+    
+    API_HOST: str
+    API_PORT: int
 
     # uris -> constructed below
     OLLAMA_BASE_URL: Any = None
     MONGO_URI: Any = None
     QDRANT_URL: Any = None
+    API_URL: Any = None
 
     def __init__(self):
         super().__init__()
@@ -37,6 +41,7 @@ class Settings(BaseSettings):
         self.OLLAMA_BASE_URL: str = f"http://{self.OLLAMA_HOST}:{self.OLLAMA_PORT}"
         self.MONGO_URI: str = f"mongodb://{self.MONGO_HOST}:{self.MONGO_PORT}"
         self.QDRANT_URL: str = f"http://{self.QDRANT_HOST}:{self.QDRANT_PORT}"
+        self.API_PORT: str = f"http://{self.API_HOST}:{self.API_PORT}"
 
 
 BASE_SETTINGS = Settings()

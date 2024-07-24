@@ -1,5 +1,5 @@
 from fastapi import APIRouter
-from src.app.schemas.query import QueryRequest, QueryResponse
+from src.api.schemas.query import QueryRequest, QueryResponse
 from src.rag.components.query_engine import query_engine
 
 router = APIRouter(

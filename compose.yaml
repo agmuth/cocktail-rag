@@ -2,13 +2,26 @@ version: '3.8'
 
 services:
 
-  gradio:
+  # gradio:
+  #   build: ./
+  #   container_name: gradio
+  #   env_file:
+  #     - .env
+  #   ports:
+  #     - ${GRADIO_SERVER_PORT}:${GRADIO_SERVER_PORT}
+  #   depends_on:
+  #     - qdrant
+  #     - mongo
+  #     - ollama
+
+  app:
     build: ./
-    container_name: gradio
+    container_name: app
+    # command: fastapi run app/src/app/main.py --port ${FASTAPI_PORT}
     env_file:
       - .env
     ports:
-      - ${GRADIO_SERVER_PORT}:${GRADIO_SERVER_PORT}
+      - ${FASTAPI_PORT}:${FASTAPI_PORT}
     depends_on:
       - qdrant
       - mongo

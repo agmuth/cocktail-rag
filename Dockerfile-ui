@@ -15,7 +15,7 @@ WORKDIR /app
 
 RUN touch README.md
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-root --only ui
+RUN poetry install --no-root --no-dev --only ui
 RUN rm -rf $POETRY_CACHE_DIR
 
 RUN mkdir src

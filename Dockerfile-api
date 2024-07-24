@@ -12,16 +12,16 @@ ENV POETRY_NO_INTERACTION=1 \
 ENV API_PORT=${API_PORT}
 
 WORKDIR /app
+COPY data/ ./data/
 
 RUN touch README.md
 COPY pyproject.toml poetry.lock ./
-RUN poetry install --no-root --only ui
+RUN poetry install --no-root --no-dev
 RUN rm -rf $POETRY_CACHE_DIR
 
 RUN mkdir src
 COPY src/__init__.py src/settings.py ./src/
 
-COPY data/ ./data/
 COPY src/rag/ ./src/rag/
 COPY src/api/ ./src/api/
 

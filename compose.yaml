@@ -7,7 +7,8 @@ services:
       context: ./
       dockerfile:  Dockerfile-ui
     container_name: ${UI_HOST}
-    command: poetry run streamlit "src/ui/main.py" --server.port ${UI_PORT}
+    command: poetry run streamlit run src/ui/main.py --server.port ${UI_PORT}
+    # entrypoint: ["tail", "-f", "/dev/null"]
     env_file:
       - .env
     ports:

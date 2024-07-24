@@ -18,5 +18,3 @@ def main(num_files_limit: Annotated[Optional[int], typer.Argument()] = None):
 
 if __name__ == "__main__":
     typer.run(main)
-    
-    

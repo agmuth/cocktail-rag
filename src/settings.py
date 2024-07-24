@@ -1,39 +1,42 @@
 from pathlib import Path, PosixPath
-from typing import Optional
+from typing import Any, Optional
 
 from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
     PROJ_DIR: PosixPath = Path(__file__).parent.parent
-    DATA_DIR: str = "data"
-    PERSIST_DIR: str = "storage"
+    DATA_DIR: Optional[str] = "data"
+    PERSIST_DIR: Optional[str] = "storage"
 
-    OLLAMA_LLM: str = "phi"
-    OLLAMA_HOST: str = "localhost"
-    OLLAMA_PORT: int = 11434
+    OLLAMA_HOST: str
+    OLLAMA_PORT: int
+    OLLAMA_LLM: str
 
-    MONGO_INITDB_ROOT_USERNAME: str = "root"
-    MONGO_INITDB_ROOT_PASSWORD: str = "example"
-    MONGO_PORT: int = 27017
-    MONGO_HOST: str = "localhost"
-    MONGO_URI: Optional[str] = None
-    MONGO_DB_NAME: str = "cocktails"
+    MONGO_HOST: str
+    MONGO_PORT: int
+    MONGO_DB_NAME: str
 
-    QDRANT_HOST: str = "localhost"
-    QDRANT_PORT: int = 6333
-    QDRANT_COLLECTION_NAME: str = "cocktails"
-    
-    GRADIO_SERVER_NAME: str="localhost"
-    GRADIO_SERVER_PORT: int=7860
-    
-    
+    QDRANT_HOST: str
+    QDRANT_PORT: int
+    QDRANT_COLLECTION_NAME: str
+
+    GRADIO_SERVER_NAME: str
+    GRADIO_SERVER_PORT: int
+
+    # uris -> constructed below
+    OLLAMA_BASE_URL: Any = None
+    MONGO_URI: Any = None
+    QDRANT_URL: Any = None
 
     def __init__(self):
         super().__init__()
-        self.DATA_DIR = self.PROJ_DIR.joinpath(self.DATA_DIR)
-        self.PERSIST_DIR = self.PROJ_DIR.joinpath(self.PERSIST_DIR)
-        self.MONGO_URI = f"mongodb://{self.MONGO_INITDB_ROOT_USERNAME}:{self.MONGO_INITDB_ROOT_PASSWORD}@{self.MONGO_HOST}:{self.MONGO_PORT}"
+        self.DATA_DIR: Path = self.PROJ_DIR.joinpath(self.DATA_DIR)
+        self.PERSIST_DIR: Path = self.PROJ_DIR.joinpath(self.PERSIST_DIR)
+
+        self.OLLAMA_BASE_URL: str = f"http://{self.OLLAMA_HOST}:{self.OLLAMA_PORT}"
+        self.MONGO_URI: str = f"mongodb://{self.MONGO_HOST}:{self.MONGO_PORT}"
+        self.QDRANT_URL: str = f"http://{self.QDRANT_HOST}:{self.QDRANT_PORT}"
 
 
 BASE_SETTINGS = Settings()

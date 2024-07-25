@@ -26,5 +26,3 @@ COPY src/rag/ ./src/rag/
 COPY src/api/ ./src/api/
 
 RUN poetry install --only-root
-
-# CMD ["poetry", "run", "fastapi", "run", "src/api/main.py", "--port", ${API_PORT}]

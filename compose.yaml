@@ -96,4 +96,3 @@ volumes:
     driver: local
   ollama:
     driver: local
-

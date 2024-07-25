@@ -23,4 +23,6 @@ COPY src/__init__.py src/settings.py ./src/
 
 COPY src/ui/ ./src/ui/
 
+RUN poetry install --only-root
+
 # CMD ["poetry", "run", "streamlit", "src/ui/ui.py", "--server.port", ${UI_PORT}]

@@ -38,6 +38,9 @@ class Settings(BaseSettings):
         self.DATA_DIR: Path = self.PROJ_DIR.joinpath(self.DATA_DIR)
         self.PERSIST_DIR: Path = self.PROJ_DIR.joinpath(self.PERSIST_DIR)
 
+        self.DATA_DIR.mkdir(exist_ok=True)
+        self.PERSIST_DIR.mkdir(exist_ok=True)
+
         self.OLLAMA_BASE_URL: str = f"http://{self.OLLAMA_HOST}:{self.OLLAMA_PORT}"
         self.MONGO_URI: str = f"mongodb://{self.MONGO_HOST}:{self.MONGO_PORT}"
         self.QDRANT_URL: str = f"http://{self.QDRANT_HOST}:{self.QDRANT_PORT}"
